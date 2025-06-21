@@ -17,7 +17,7 @@ class HINAMI_API ATestEnemy : public ACharacter
 
 public:
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
 	int32 HP;
 
 	ATestEnemy();

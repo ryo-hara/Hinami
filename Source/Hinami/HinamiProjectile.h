@@ -25,7 +25,7 @@ class AHinamiProjectile : public AActor
 public:
 	AHinamiProjectile();
 
-	UPROPERTY(EditAnywhere)
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Variables")
 	int32 Damage;
 
 	/** called when projectile hits something */

@@ -3,3 +3,9 @@
 
 #include "Widget/GameMainWidget.h"
 
+bool UGameMainWidget::Initialize()
+{
+	Super::Initialize();
+	GameClearWidget->SetVisibility(ESlateVisibility::Collapsed);
+	return true;
+}

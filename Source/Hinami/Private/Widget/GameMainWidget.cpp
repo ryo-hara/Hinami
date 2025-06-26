@@ -9,3 +9,9 @@ bool UGameMainWidget::Initialize()
 	GameClearWidget->SetVisibility(ESlateVisibility::Collapsed);
 	return true;
 }
+
+void UGameMainWidget::SetGameClearWidgetVisibility(ESlateVisibility  SlateVisibility)
+{
+	GameClearWidget->SetVisibility(ESlateVisibility::Visible);
+}
+

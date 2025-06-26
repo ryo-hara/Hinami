@@ -19,4 +19,5 @@ public:
 	UGameClearWidget *GameClearWidget;
 
 	virtual  bool Initialize()  override;
+	void SetGameClearWidgetVisibility(ESlateVisibility  SlateVisibility);
 };

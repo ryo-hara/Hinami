@@ -12,3 +12,20 @@ AHinamiGameMode::AHinamiGameMode()
 	DefaultPawnClass = PlayerPawnClassFinder.Class;
 
 }
+
+void AHinamiGameMode::BeginPlay()
+{
+	Super::BeginPlay();
+	this->ActionGameState = GetWorld()->GetGameState<AActionGameState>();
+}
+
+void AHinamiGameMode::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+
+	if (ActionGameState->IsGameClear())
+	{
+		GameMainWidget->SetGameClearWidgetVisibility(ESlateVisibility::Visible);
+	}
+	
+}

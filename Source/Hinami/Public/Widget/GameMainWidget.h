@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameClearWidget.h"
+#include "GameOverWidget.h"
 #include "Blueprint/UserWidget.h"
 #include "GameMainWidget.generated.h"
 
@@ -17,7 +18,10 @@ class HINAMI_API UGameMainWidget : public UUserWidget
 public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	UGameClearWidget *GameClearWidget;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	UGameOverWidget *GameOverWidget;
 
 	virtual  bool Initialize()  override;
 	void SetGameClearWidgetVisibility(ESlateVisibility  SlateVisibility);
+	void SetGameOverWidgetVisibility(ESlateVisibility  SlateVisibility);
 };

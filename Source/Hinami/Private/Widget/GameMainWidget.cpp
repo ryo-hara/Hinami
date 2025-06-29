@@ -7,6 +7,7 @@ bool UGameMainWidget::Initialize()
 {
 	Super::Initialize();
 	GameClearWidget->SetVisibility(ESlateVisibility::Collapsed);
+	GameOverWidget->SetVisibility(ESlateVisibility::Collapsed);
 	return true;
 }
 
@@ -15,3 +16,7 @@ void UGameMainWidget::SetGameClearWidgetVisibility(ESlateVisibility  SlateVisibi
 	GameClearWidget->SetVisibility(ESlateVisibility::Visible);
 }
 
+void UGameMainWidget::SetGameOverWidgetVisibility(ESlateVisibility  SlateVisibility)
+{
+	GameOverWidget->SetVisibility(ESlateVisibility::Visible);
+}

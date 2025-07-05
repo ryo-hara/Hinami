@@ -32,6 +32,7 @@ public:
 
 private:
 	void OnMainCharacterStateChanged(MainCharacterState state);
+	bool isClear = false;
 };
 
 

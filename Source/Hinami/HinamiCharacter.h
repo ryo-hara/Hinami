@@ -20,7 +20,8 @@ enum MainCharacterState
 {
 	Idle,
 	invincible,
-	Death
+	Death,
+	ClearInvincible
 };
 
 DECLARE_DELEGATE_OneParam(FMainCharacterStateDelegate, MainCharacterState);
@@ -79,6 +80,8 @@ public:
 
 	FMainCharacterStateDelegate OnStateChanged;
 
+	void SetClearInvincible();
+
 private:
 	void SetCollisionDetection();
 
@@ -92,6 +95,9 @@ private:
 
 	// 無敵中かどうか
 	bool isInvincible = false;
+
+	bool isClear = false;
+	
 	bool isDeath = false;
 	FDateTime hitTimestamp;
 

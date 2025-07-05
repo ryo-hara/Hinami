@@ -152,7 +152,7 @@ void AHinamiCharacter::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
-	if (isInvincible && !isDeath)
+	if (isInvincible && !isDeath && !isClear)
 	{
 		auto pastTime = FDateTime::Now() - hitTimestamp;
 		if (pastTime.GetSeconds() >= INVINCIBLE_SECOND)
@@ -163,3 +163,9 @@ void AHinamiCharacter::Tick(float DeltaSeconds)
 	}
 }
 
+void AHinamiCharacter::SetClearInvincible()
+{
+	OnStateChanged.Execute(MainCharacterState::ClearInvincible);
+	isClear = true;
+	isInvincible = true;
+}

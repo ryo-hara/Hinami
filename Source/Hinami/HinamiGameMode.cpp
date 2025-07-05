@@ -32,9 +32,11 @@ void AHinamiGameMode::Tick(float DeltaSeconds)
 {
 	Super::Tick(DeltaSeconds);
 
-	if (ActionGameState->IsGameClear())
+	if (!isClear && ActionGameState->IsGameClear())
 	{
+		isClear = true;
 		GameMainWidget->SetGameClearWidgetVisibility(ESlateVisibility::Visible);
+		mainCharacter->SetClearInvincible();
 	}
 	
 }

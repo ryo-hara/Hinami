@@ -8,15 +8,22 @@ bool UGameMainWidget::Initialize()
 	Super::Initialize();
 	GameClearWidget->SetVisibility(ESlateVisibility::Collapsed);
 	GameOverWidget->SetVisibility(ESlateVisibility::Collapsed);
+	OnHitText->SetVisibility(ESlateVisibility::Collapsed);
+
 	return true;
 }
 
 void UGameMainWidget::SetGameClearWidgetVisibility(ESlateVisibility  SlateVisibility)
 {
-	GameClearWidget->SetVisibility(ESlateVisibility::Visible);
+	GameClearWidget->SetVisibility(SlateVisibility);
 }
 
 void UGameMainWidget::SetGameOverWidgetVisibility(ESlateVisibility  SlateVisibility)
 {
-	GameOverWidget->SetVisibility(ESlateVisibility::Visible);
+	GameOverWidget->SetVisibility(SlateVisibility);
+}
+
+void UGameMainWidget::SetOnHitTextVisibility(ESlateVisibility SlateVisibility)
+{
+	OnHitText->SetVisibility(SlateVisibility);
 }

@@ -6,6 +6,7 @@
 #include "ActionGameState.h"
 #include "GameFramework/GameModeBase.h"
 #include "Widget/GameMainWidget.h"
+#include "HinamiCharacter.h"
 #include "HinamiGameMode.generated.h"
 
 UCLASS(minimalapi)
@@ -15,6 +16,8 @@ class AHinamiGameMode : public AGameModeBase
 private:
 	UGameMainWidget* GameMainWidget;
 	AActionGameState* ActionGameState;
+	AHinamiCharacter *mainCharacter;
+
 public:
 	AHinamiGameMode();
 
@@ -26,6 +29,9 @@ public:
 
 	void Tick(float DeltaSeconds) override;
 	void BeginPlay() override;
+
+private:
+	void OnMainCharacterStateChanged(MainCharacterState state);
 };
 
 

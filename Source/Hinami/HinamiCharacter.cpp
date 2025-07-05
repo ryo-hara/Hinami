@@ -9,6 +9,7 @@
 #include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
 #include "InputActionValue.h"
+#include "TestEnemy.h"
 #include "Engine/LocalPlayer.h"
 
 DEFINE_LOG_CATEGORY(LogTemplateCharacter);
@@ -58,6 +59,7 @@ void AHinamiCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputCom
 	// Set up action bindings
 	if (UEnhancedInputComponent* EnhancedInputComponent = Cast<UEnhancedInputComponent>(PlayerInputComponent))
 	{
+		this->enhancedInputComponent = EnhancedInputComponent;
 		// Jumping
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Started, this, &ACharacter::Jump);
 		EnhancedInputComponent->BindAction(JumpAction, ETriggerEvent::Completed, this, &ACharacter::StopJumping);
@@ -100,3 +102,64 @@ void AHinamiCharacter::Look(const FInputActionValue& Value)
 		AddControllerPitchInput(LookAxisVector.Y);
 	}
 }
+
+void AHinamiCharacter::SetCollisionDetection()
+{
+	GetCapsuleComponent()->OnComponentHit.AddDynamic(this, &AHinamiCharacter::OnHit);
+}
+
+void AHinamiCharacter::OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit)
+{
+	if (isInvincible)
+	{
+		return;
+	}
+
+	if (auto enemy = Cast<ATestEnemy>(OtherActor))
+	{
+		UE_LOG(LogTemp, Warning, TEXT("======HitEnemy"));
+		OnHitEnemy();
+	}
+	
+}
+
+void AHinamiCharacter::OnHitEnemy()
+{
+	this->hitTimestamp = FDateTime::Now();
+	isInvincible = true;
+	hp--;
+	if (hp <= 0)
+	{
+		OnStateChanged.Execute(MainCharacterState::Death);
+		isDeath = true;
+		enhancedInputComponent->ClearActionEventBindings();
+		// 移動をキル
+	}else
+	{
+		OnStateChanged.Execute(MainCharacterState::invincible);
+	}
+	// ダメージ処理を入れる
+}
+
+
+void AHinamiCharacter::BeginPlay()
+{
+	Super::BeginPlay();
+	SetCollisionDetection();
+}
+
+void AHinamiCharacter::Tick(float DeltaSeconds)
+{
+	Super::Tick(DeltaSeconds);
+
+	if (isInvincible && !isDeath)
+	{
+		auto pastTime = FDateTime::Now() - hitTimestamp;
+		if (pastTime.GetSeconds() >= INVINCIBLE_SECOND)
+		{
+			isInvincible = false;
+			OnStateChanged.Execute(MainCharacterState::Idle);
+		}
+	}
+}
+

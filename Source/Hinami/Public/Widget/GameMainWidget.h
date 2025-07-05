@@ -6,6 +6,7 @@
 #include "GameClearWidget.h"
 #include "GameOverWidget.h"
 #include "Blueprint/UserWidget.h"
+#include "Components/TextBlock.h"
 #include "GameMainWidget.generated.h"
 
 /**
@@ -20,8 +21,12 @@ public:
 	UGameClearWidget *GameClearWidget;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
 	UGameOverWidget *GameOverWidget;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, meta = (BindWidget))
+	UTextBlock *OnHitText;
 
 	virtual  bool Initialize()  override;
 	void SetGameClearWidgetVisibility(ESlateVisibility  SlateVisibility);
 	void SetGameOverWidgetVisibility(ESlateVisibility  SlateVisibility);
+	void SetOnHitTextVisibility(ESlateVisibility  SlateVisibility);
+
 };

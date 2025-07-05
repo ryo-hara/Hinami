@@ -16,6 +16,16 @@ struct FInputActionValue;
 
 DECLARE_LOG_CATEGORY_EXTERN(LogTemplateCharacter, Log, All);
 
+enum MainCharacterState
+{
+	Idle,
+	invincible,
+	Death
+};
+
+DECLARE_DELEGATE_OneParam(FMainCharacterStateDelegate, MainCharacterState);
+
+
 UCLASS(config=Game)
 class AHinamiCharacter : public ACharacter
 {
@@ -67,5 +77,28 @@ public:
 	/** Returns FirstPersonCameraComponent subobject **/
 	UCameraComponent* GetFirstPersonCameraComponent() const { return FirstPersonCameraComponent; }
 
+	FMainCharacterStateDelegate OnStateChanged;
+
+private:
+	void SetCollisionDetection();
+
+	UFUNCTION(BlueprintCallable)
+	void OnHit(UPrimitiveComponent* HitComponent, AActor* OtherActor, UPrimitiveComponent* OtherComp, FVector NormalImpulse, const FHitResult& Hit);
+
+	void OnHitEnemy();
+
+	void BeginPlay() override;
+	void Tick(float DeltaSeconds) override;
+
+	// 無敵中かどうか
+	bool isInvincible = false;
+	bool isDeath = false;
+	FDateTime hitTimestamp;
+
+	const int INVINCIBLE_SECOND = 3;
+
+	int hp = 3;
+
+	UEnhancedInputComponent* enhancedInputComponent = nullptr;
 };
 

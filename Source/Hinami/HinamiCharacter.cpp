@@ -150,6 +150,7 @@ void AHinamiCharacter::BeginPlay()
 
 void AHinamiCharacter::Tick(float DeltaSeconds)
 {
+	
 	Super::Tick(DeltaSeconds);
 
 	if (isInvincible && !isDeath && !isClear)
